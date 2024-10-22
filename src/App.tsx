@@ -4,7 +4,19 @@ import './App.css';
 
 function App() {
   return (
-    <InputBox ></InputBox>
+    <div className='tmpclass'>
+      <InputBox 
+          title='아이디' 
+          placeholder='아이디를 입력하세요..' 
+          type='password' 
+          value='' 
+          isErrorMessage={false} 
+          onChange={()=>{}}  
+          buttonTitle='중복확인'
+          onKeydown={()=>{}} 
+          onButtonClick={()=>{}} 
+      ></InputBox>
+    </div>
   ); 
 }
 

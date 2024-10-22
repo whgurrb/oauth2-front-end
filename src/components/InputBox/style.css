@@ -19,7 +19,7 @@
     gap: 4px;
 }
 
-.input-box-body{
+.input-box-body {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -89,7 +89,7 @@
     cursor: default;
 }
 
-.input-box-button:hover{ 
+.input-box-button:hover { 
     background-color: rgb(58, 87, 232, 0.4);
 }
 
