@@ -1,0 +1,31 @@
+.input-box {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-box-title {
+    color: rgba(138, 146, 166, 1);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+
+    cursor: default;
+}
+
+.input-box-content {
+}
+
+.input-box-body{
+}
+.input-box-input {
+
+}
+
+.input-box-button { 
+
+}
+
+.input-box-title {
+
+}
