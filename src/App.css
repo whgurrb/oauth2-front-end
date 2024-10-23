@@ -54,8 +54,39 @@
 
   cursor: pointer;
 }
+.text-link-lg:hover {
+  color:  rgba(40, 40, 40, 1);
+}
 
 .full-width{
   width: 100%;
 }
 
+
+.kakao-sign-in-button {
+  width: 56px;
+  height: 56px;
+
+  background-image: url( assets/images/kakao.jpg );
+  background-position: 50% 50%;
+  background-size: 100% 100%;
+
+  cursor: pointer;
+}
+
+.naver-sign-in-button {
+  width: 56px;
+  height: 56px;
+
+  background-image: url( assets/images/naver.jpg );
+  background-position: 50% 50%;
+  background-size: 100% 100%;
+
+  cursor: pointer;
+}
+
+.sns-button-box {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+}
