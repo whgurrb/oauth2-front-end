@@ -7,7 +7,7 @@ interface Props{
     type: 'text' | 'password';
     value: string;
     message?: string;
-    isErrorMessage: boolean; 
+    isErrorMessage?: boolean; 
     buttonTitle?: string;
     onChange: ( event: ChangeEvent<HTMLInputElement> )=> void ;
     onKeydown: ( event: KeyboardEvent<HTMLInputElement> ) => void;
