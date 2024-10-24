@@ -5,6 +5,7 @@ enum ResponseCode {
     SIGN_IN_FAIL = "SF",
     CERTIFICATION_FAIL = "CF",
     DATABASE_ERROR = "DBE",
+    MAIL_FAIL = "MF",
 }
 
 export default ResponseCode;
