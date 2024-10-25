@@ -2,6 +2,7 @@ import InputBox from 'components/InputBox';
 import './App.css';
 import { ChangeEvent, useState } from 'react';
 
+
 function App() {
   const onNaverClickHandler=()=>{
     alert('Naver access....');
