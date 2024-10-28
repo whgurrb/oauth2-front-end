@@ -1,5 +1,6 @@
 import InputBox from 'components/InputBox'
 import React, { ChangeEvent, KeyboardEvent, useRef, useState } from 'react'
+import './style.css'
 
 export default function SignUp() {
     const idRef = useRef<HTMLInputElement| null>( null );
@@ -25,6 +26,9 @@ export default function SignUp() {
     const [checkPasswordPessage, setCheckPasswordMessage] = useState<string> ('');
     const [emailMessage, setEmailMessage] = useState<string> ('');
     const [certificationNumberMessage, setCertificationNumberMessage] = useState<string> ('');
+
+
+    const signUpButtonClassName = ( id && password && checkPassword && email && certificationNumber)? 'primary-button-lg' :'disable-button-lg' ;
 
     const onIdChangeHandler = (event:ChangeEvent<HTMLInputElement>)=>{
         const { value } = event.target;
@@ -107,7 +111,7 @@ export default function SignUp() {
                 <div className='sign-up-title'> { '우주여행 서비스' } </div>
                 <div className='sign-up-content-box'>
                     <div className='sign-up-content-sns-sign-in-box'>
-                        <div className='sign-up-content-sns-sign-in-title'> { 'SNS 로그인' }</div>
+                        <div className='sign-up-content-sns-sign-in-title'> { 'SNS 회원가입' }</div>
                         <div className='sign-up-content-sns-sign-in-button-box'>
                             <div className='kakao-sign-in-button'></div>
                             <div className='naver-sign-in-button'></div>
@@ -136,7 +140,7 @@ export default function SignUp() {
                                   onChange={onCertificationChangeHandler} onKeydown={onCertificationNumberKeyDownHandler} onButtonClick={onCertificationNumberButtonClickHandler}/>
                     </div>
                     <div className='sign-up-content-buton-box'>
-                        <div className='primary-button-lg full-width'> {'회원가입'}</div>
+                        <div className={signUpButtonClassName}> {'회원가입'}</div>
                         <div className='text-link-lg full-width'> {'로그인'} </div>
                     </div>
                 </div>

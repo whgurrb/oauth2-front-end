@@ -1,24 +1,118 @@
 #sign-up-wrapper {
-    display: flex ;
-    flex-direction: row;
-    
+   width: 100vw; 
+   height: 100vh;
+
+   display: flex;
+   flex-direction: row;
+
+   gap: 20px;
 }
 
 .sign-up-image {
-    display: flex;
-    width: 830px;
-    height: 100%;
-
-    background-image: url( assets/sign-up-image.png );
+    width: 840px;
     background-position: 50% 50%;
     background-size: 100% 100%;
+    background-image: url( ./assets/images/sign-up-image.png );
 }
 
 .sign-up-container {
+    flex: 1;
+
     display: flex;
-    flex: 1 ;
+    justify-content: center;
+    align-items: center;
 }
 
 .sign-up-box {
 
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+
+    gap: 1 4px;
 }
+
+.sign-up-title {
+    color: rgb(64, 64, 64,1);
+
+
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 173%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.sign-up-content-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;  
+    align-items: center;
+}
+
+.sign-up-content-sns-sign-in-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.sign-up-content-sns-sign-in-title {
+    color: rgb(138, 146, 166,1);
+
+
+    font-size: 16px;
+    font-weight: 500;
+    line-height: normal;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign-up-content-sns-sign-in-button-box {
+    display: flex;
+    flex-direction: row;
+
+    gap: 14px;
+
+}
+
+.sign-up-content-divider {
+    width: 64px;
+    border-top: 1px solid rgba(238,238,238,1);
+}
+
+.sign-up-content-input-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sign-up-content-buton-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
