@@ -1,6 +1,7 @@
 import InputBox from 'components/InputBox'
 import React, { ChangeEvent, KeyboardEvent, useRef, useState } from 'react'
 import './style.css'
+import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
     const idRef = useRef<HTMLInputElement| null>( null );
@@ -29,6 +30,8 @@ export default function SignUp() {
 
 
     const signUpButtonClassName = ( id && password && checkPassword && email && certificationNumber)? 'primary-button-lg' :'disable-button-lg' ;
+
+    const navigate = useNavigate();
 
     const onIdChangeHandler = (event:ChangeEvent<HTMLInputElement>)=>{
         const { value } = event.target;
@@ -62,13 +65,22 @@ export default function SignUp() {
 
 
     const onIdButtonClickHandler= ()=>{
-        alert("중복확인");
+        alert("ID 중복확인");        
     }
+
     const onEmailButtonClickHandler= ()=>{
         alert("인증번호 전송");
     }
+
     const onCertificationNumberButtonClickHandler= ()=>{
         alert("인증 확인");
+    }
+
+    const onSignUpButtonClickHandler= ()=>{
+        alert("SignUp Processing...");
+    }
+    const onSignInButtonClickHandler = ()=>{
+        navigate('/auth/sign-in');
     }
 
     const onIdKeyDownHandler = (event: KeyboardEvent<HTMLInputElement> )=>{
@@ -140,8 +152,8 @@ export default function SignUp() {
                                   onChange={onCertificationChangeHandler} onKeydown={onCertificationNumberKeyDownHandler} onButtonClick={onCertificationNumberButtonClickHandler}/>
                     </div>
                     <div className='sign-up-content-buton-box'>
-                        <div className={signUpButtonClassName}> {'회원가입'}</div>
-                        <div className='text-link-lg full-width'> {'로그인'} </div>
+                        <div className={signUpButtonClassName} onClick={onSignUpButtonClickHandler}> {'회원가입'}</div>
+                        <div className='text-link-lg full-width' onClick={onSignInButtonClickHandler}> {'로그인'} </div>
                     </div>
                 </div>
             </div>

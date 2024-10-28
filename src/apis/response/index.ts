@@ -1,5 +1,5 @@
-import ResposeDto from './response.dto';
+import ResponseDto from './response.dto';
 
 export type {
-    ResposeDto
+    ResponseDto
 }
