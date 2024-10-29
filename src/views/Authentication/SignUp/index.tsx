@@ -2,9 +2,9 @@ import InputBox from 'components/InputBox'
 import React, { ChangeEvent, KeyboardEvent, useRef, useState } from 'react'
 import './style.css'
 import { useNavigate } from 'react-router-dom';
-import { CheckCertificationNumberRequestDto, EmailCertificationRequestDto, IdCheckRequestDto } from 'apis/request/auth';
-import { checkCertificationNumberRequest, emailCertificationRequest, idCheckRequest } from 'apis';
-import { CheckCertificationNumberResponseDto, EmailCertificationResponseDto, IdCheckResponseDto } from 'apis/response/auth';
+import { CheckCertificationNumberRequestDto, EmailCertificationRequestDto, IdCheckRequestDto, SignUpRequestDto } from 'apis/request/auth';
+import { checkCertificationNumberRequest, emailCertificationRequest, idCheckRequest, signUpRequest } from 'apis';
+import { CheckCertificationNumberResponseDto, EmailCertificationResponseDto, IdCheckResponseDto, SignUpResponseDto } from 'apis/response/auth';
 import { ResponseDto } from 'apis/response';
 import { ResponseCode } from 'types/enums';
 import { ResponseType } from 'types';
@@ -41,6 +41,8 @@ export default function SignUp() {
                                       && ( certificationNumber && isCertificationNumberChecked) )? 'primary-button-lg' :'disable-button-lg' ;
 
     const emailPattern = /^[a-zA-Z0-9]*@([-.]?[a-zA-Z0-9])*\.[a-zA-Z]{2,4}$/
+    const passwordPattern = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,13}$/
+
     const navigate = useNavigate();
 
     const idCheckResponse=( responseBody: ResponseType<IdCheckResponseDto> )=>{
@@ -78,6 +80,40 @@ export default function SignUp() {
         setEmailMessage("인증 번호가 전송 되었습니다.");
     }
 
+    const checkCertificationNumberResponse = (responseBody: ResponseType<CheckCertificationNumberResponseDto> )=>{
+        if( !responseBody ) return;
+        const { code } = responseBody;
+        if( code === ResponseCode.VALIDATION_FAIL ) alert("아이디, 이메일과 인증번호을 모두 입력하세요.");
+        if( code === ResponseCode.DATABASE_ERROR ) alert("데이터베이스 오류입니다.");
+        if( code === ResponseCode.CERTIFICATION_FAIL ) {
+            setIsCertificationNumberErrorMessage( true );
+            setCertificationNumberMessage("인증번호가 일치하지 않습니다.");
+            setIsCertificationNumberChecked( false ); 
+        }
+        if( code !== ResponseCode.SUCCESS ) return;
+        setIsCertificationNumberErrorMessage( false );
+        setCertificationNumberMessage("인증번호를 확인 되었습니다.");
+        setIsCertificationNumberChecked( true ); 
+    }
+
+    const signUpResponse = (responseBody: ResponseType<SignUpResponseDto>)=>{
+        if( !responseBody ) return;
+        const { code } = responseBody;
+        if( code === ResponseCode.VALIDATION_FAIL ) alert("모든 항목을 입력하세요.");
+        if( code === ResponseCode.DATABASE_ERROR ) alert("데이터베이스 오류입니다.");
+        if( code === ResponseCode.CERTIFICATION_FAIL ) {
+            setIsCertificationNumberErrorMessage( true );
+            setCertificationNumberMessage("인증번호가 일치하지 않습니다.");
+            setIsCertificationNumberChecked( false ); 
+        }
+        if( code === ResponseCode.DUPLICATE_ID ){
+            setIsIdErrorMessage( true );
+            setIdMessage("이미 사용중인 아이디 입니다.");
+            setIsIdChecked( false ); 
+        }
+        if( code !== ResponseCode.SUCCESS ) return;
+        navigate('/auth/sign-in');
+    }
 
     const onIdChangeHandler = (event:ChangeEvent<HTMLInputElement>)=>{
         const { value } = event.target;
@@ -134,24 +170,6 @@ export default function SignUp() {
 
     }
 
-    
-
-
-    const checkCertificationNumberResponse = (responseBody: ResponseType<CheckCertificationNumberResponseDto> )=>{
-        if( !responseBody ) return;
-        const { code } = responseBody;
-        if( code === ResponseCode.VALIDATION_FAIL ) alert("아이디, 이메일과 인증번호을 모두 입력하세요.");
-        if( code === ResponseCode.DATABASE_ERROR ) alert("데이터베이스 오류입니다.");
-        if( code === ResponseCode.CERTIFICATION_FAIL ) {
-            setIsCertificationNumberErrorMessage( true );
-            setCertificationNumberMessage("인증번호가 일치하지 않습니다.");
-            setIsCertificationNumberChecked( false ); 
-        }
-        if( code !== ResponseCode.SUCCESS ) return;
-        setIsCertificationNumberErrorMessage( false );
-        setCertificationNumberMessage("인증번호를 확인 되었습니다.");
-        setIsCertificationNumberChecked( true ); 
-    }
 
 
     const onCertificationNumberButtonClickHandler= ()=>{
@@ -164,18 +182,33 @@ export default function SignUp() {
     }
 
 
-
-
-
-
-
-
-
-
-
-
     const onSignUpButtonClickHandler= ()=>{
-        if( !id || !password || !email || !certificationNumber ) return;
+        if( !id || !password || !checkPassword || !email || !certificationNumber ) return;
+        if( !isIdChecked ) {
+            alert("아이디 중복확인은 필수 입니다.");
+            return;
+        }
+        const isPasswordPattern = passwordPattern.test( password );
+        if( !isPasswordPattern ){ 
+            setIsPasswordErrorMessage( true );
+            setPasswordMessage('영문자, 숫자를 혼용하여 8~13 문자를 입력하세요.');
+            return;
+        }
+
+        if( password !== checkPassword ) { 
+            setIsCheckPasswordErrorMessage(true);
+            setCheckPasswordMessage('비밀번호와 일치하지 않습니다.');
+            return;
+        }
+
+        if( !isCertificationNumberChecked ) {
+            alert('이메일 인증은 필수 입니다.');
+            return;
+        }
+
+        const requestBody: SignUpRequestDto = { id, password, email, certificationNumber };
+        signUpRequest( requestBody ).then( signUpResponse );
+
     }
 
 
