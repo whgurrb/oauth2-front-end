@@ -1,0 +1,118 @@
+#sign-in-wrapper {
+   width: 100vw; 
+   height: 100vh;
+
+   display: flex;
+   flex-direction: row;
+
+   gap: 20px;
+}
+
+.sign-in-image {
+    width: 840px;
+    background-position: 50% 50%;
+    background-size: 100% 100%;
+    background-image: url( ./assets/images/sign-in-image.png );
+}
+
+.sign-in-container {
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign-in-box {
+
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+
+    gap: 34px;
+}
+
+.sign-in-title {
+    color: rgb(64, 64, 64,1);
+
+
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 173%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.sign-in-content-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;  
+    align-items: center;
+}
+
+.sign-in-content-sns-sign-in-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.sign-in-content-sns-sign-in-title {
+    color: rgb(138, 146, 166,1);
+
+
+    font-size: 16px;
+    font-weight: 500;
+    line-height: normal;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign-in-content-sns-sign-in-button-box {
+    display: flex;
+    flex-direction: row;
+
+    gap: 14px;
+
+}
+
+.sign-in-content-divider {
+    width: 64px;
+    border-top: 1px solid rgba(238,238,238,1);
+}
+
+.sign-in-content-input-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sign-in-content-buton-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
