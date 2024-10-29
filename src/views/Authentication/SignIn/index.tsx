@@ -2,16 +2,19 @@ import InputBox from 'components/InputBox'
 import React, { ChangeEvent, KeyboardEvent, useRef, useState } from 'react'
 import './style.css'
 import { useNavigate } from 'react-router-dom';
-import { CheckCertificationNumberRequestDto, EmailCertificationRequestDto, IdCheckRequestDto, SignUpRequestDto } from 'apis/request/auth';
-import { checkCertificationNumberRequest, emailCertificationRequest, idCheckRequest, signUpRequest } from 'apis';
-import { CheckCertificationNumberResponseDto, EmailCertificationResponseDto, IdCheckResponseDto, SignUpResponseDto } from 'apis/response/auth';
+import { CheckCertificationNumberRequestDto, EmailCertificationRequestDto, IdCheckRequestDto, SignInRequestDto, SignUpRequestDto } from 'apis/request/auth';
+import { checkCertificationNumberRequest, emailCertificationRequest, idCheckRequest, signInRequest, signUpRequest } from 'apis';
+import { CheckCertificationNumberResponseDto, EmailCertificationResponseDto, IdCheckResponseDto, SignInResponseDto, SignUpResponseDto } from 'apis/response/auth';
 import { ResponseDto } from 'apis/response';
 import { ResponseCode } from 'types/enums';
-import { ResponseType } from 'types';
+import { ResponseBody } from 'types';
+import { useCookies } from 'react-cookie';
 
 export default function SignIn() {
     const idRef = useRef<HTMLInputElement| null>( null );
     const passwordRef = useRef<HTMLInputElement| null>( null );
+
+    const [cookie, setCookie, removeCookie] = useCookies();
 
     const [id, setId] = useState<string> ('');
     const [password, setPassword] = useState<string> ('');
@@ -24,27 +27,36 @@ export default function SignIn() {
 
     const signUpButtonClassName = ( id && password )? 'primary-button-lg' :'disable-button-lg' ;
 
-    const passwordPattern = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,13}$/
-
     const navigate = useNavigate();
 
-    const signUpResponse = (responseBody: ResponseType<SignUpResponseDto>)=>{
+
+       
+    const signInResponse = (responseBody: ResponseBody<SignInResponseDto>)=>{
         if( !responseBody ) return;
         const { code } = responseBody;
-        if( code === ResponseCode.VALIDATION_FAIL ) alert("모든 항목을 입력하세요.");
+        if( code === ResponseCode.VALIDATION_FAIL ) alert("아이디와 비밀번호를 입력하세요.");
         if( code === ResponseCode.DATABASE_ERROR ) alert("데이터베이스 오류입니다.");
-        if( code === ResponseCode.DUPLICATE_ID ){
-            setIsIdErrorMessage( true );
-            setIdMessage("이미 사용중인 아이디 입니다.");
+        if( code === ResponseCode.SIGN_IN_FAIL ){
+            setIsPasswordErrorMessage(true);
+            setPasswordMessage("로그인 정보가 일치하지 않습니다.");
+            return;
         }
         if( code !== ResponseCode.SUCCESS ) return;
-        navigate('/auth/sign-in');
+
+        const { token, expirationTime } = responseBody as SignInResponseDto;
+        const now = new Date().getTime();
+        const expires = new Date( now + expirationTime * 1000 );
+        setCookie( 'accessToken', token, {expires, path: '/'})
+
+        navigate('/');
+        
     }
 
     const onIdChangeHandler = (event:ChangeEvent<HTMLInputElement>)=>{
         const { value } = event.target;
         setId( value );
         setIdMessage('');
+        setPasswordMessage('');
     }
 
     const onPasswordChangeHandler = (event:ChangeEvent<HTMLInputElement>)=>{
@@ -59,7 +71,14 @@ export default function SignIn() {
     }
 
     const onSignInButtonClickHandler = ()=>{
-        alert("Login.....");
+
+        if( !id || !password ) {
+            alert('아이디와 비밀번호를 입력하세요.');
+            return;
+        }
+        const requestBody: SignInRequestDto = { id, password };
+        signInRequest( requestBody ).then( signInResponse );
+
     }
 
 

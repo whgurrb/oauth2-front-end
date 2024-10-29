@@ -7,7 +7,7 @@ import { checkCertificationNumberRequest, emailCertificationRequest, idCheckRequ
 import { CheckCertificationNumberResponseDto, EmailCertificationResponseDto, IdCheckResponseDto, SignUpResponseDto } from 'apis/response/auth';
 import { ResponseDto } from 'apis/response';
 import { ResponseCode } from 'types/enums';
-import { ResponseType } from 'types';
+import { ResponseBody } from 'types';
 
 export default function SignUp() {
     const idRef = useRef<HTMLInputElement| null>( null );
@@ -45,7 +45,7 @@ export default function SignUp() {
 
     const navigate = useNavigate();
 
-    const idCheckResponse=( responseBody: ResponseType<IdCheckResponseDto> )=>{
+    const idCheckResponse=( responseBody: ResponseBody<IdCheckResponseDto> )=>{
         if( !responseBody ) return;
         const { code } = responseBody;
         if( code === ResponseCode.VALIDATION_FAIL ) alert("아이디를 입력하세요.");
@@ -62,7 +62,7 @@ export default function SignUp() {
     }
 
 
-    const emailCertificationResponse=(responseBody: ResponseType<EmailCertificationResponseDto> )=>{
+    const emailCertificationResponse=(responseBody: ResponseBody<EmailCertificationResponseDto> )=>{
         if( !responseBody ) return;
         const { code } = responseBody;
         if( code === ResponseCode.VALIDATION_FAIL ) alert("아이디와 이메일을 모두 입력하세요.");
@@ -80,7 +80,7 @@ export default function SignUp() {
         setEmailMessage("인증 번호가 전송 되었습니다.");
     }
 
-    const checkCertificationNumberResponse = (responseBody: ResponseType<CheckCertificationNumberResponseDto> )=>{
+    const checkCertificationNumberResponse = (responseBody: ResponseBody<CheckCertificationNumberResponseDto> )=>{
         if( !responseBody ) return;
         const { code } = responseBody;
         if( code === ResponseCode.VALIDATION_FAIL ) alert("아이디, 이메일과 인증번호을 모두 입력하세요.");
@@ -96,7 +96,7 @@ export default function SignUp() {
         setIsCertificationNumberChecked( true ); 
     }
 
-    const signUpResponse = (responseBody: ResponseType<SignUpResponseDto>)=>{
+    const signUpResponse = (responseBody: ResponseBody<SignUpResponseDto>)=>{
         if( !responseBody ) return;
         const { code } = responseBody;
         if( code === ResponseCode.VALIDATION_FAIL ) alert("모든 항목을 입력하세요.");
