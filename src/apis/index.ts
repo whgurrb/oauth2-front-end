@@ -19,6 +19,8 @@ const DOMAIN = 'http://localhost:4040';
 
 const API_DOMAIN = `${DOMAIN}/api/v1/auth`;
 
+export const SNS_SIGN_IN_URL= (type: 'kakao' | 'naver' ) => `${API_DOMAIN}/oauth2/${type}`;
+
 const SIGN_IN_URL = ()=> `${API_DOMAIN}/sign-in`;
 const SIGN_UP_URL = ()=> `${API_DOMAIN}/sign-up`;
 const ID_CHECK_URL = ()=> `${API_DOMAIN}/id-check`;

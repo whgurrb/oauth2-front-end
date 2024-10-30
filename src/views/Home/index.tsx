@@ -1,15 +1,35 @@
 import { useCookies } from 'react-cookie';
 import './style.css'
+import { useNavigate } from 'react-router-dom';
+import { getSubject } from 'common';
+
+
 export default function Home() {
     const [cookie, setCookie, removeCookie] = useCookies();
-    alert( cookie );
+    const navigate = useNavigate();
+
+    const isLogined = cookie.accessToken === undefined || cookie.accessToken === null
+
+    const loginId : string = getSubject( cookie );
+    const onLoginButtonHandler = ()=>{
+        navigate('/auth/sign-in')
+    }
+
+    const onLogoutButtonHandler= ()=>{
+        removeCookie( 'accessToken' );
+        navigate('/');
+    }
 
     return(
-        <div>
-            <div><h1>우주여행 서비스</h1></div>
-            <div className='login-text-link'> 로그인 </div>
-            <div className='login-text-link'> 로그아웃 </div>
-            
+        <div className='home-wrapper'>
+            <div className='home-title-box'>우주여행 서비스</div>
+            <div className='home-link-box'>
+                { isLogined && <div className='text-link-lg' onClick={ onLoginButtonHandler }>로그인</div> }
+                { !isLogined && <div className='text-link-lg' onClick={ onLogoutButtonHandler }>[ {loginId} ] 로그아웃</div> }
+            </div>
+            <div className='home-image-box'>
+                <div className='back-image-box'></div>
+            </div>
         </div>
     )
 }

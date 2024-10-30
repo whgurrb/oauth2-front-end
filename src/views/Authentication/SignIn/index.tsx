@@ -3,7 +3,7 @@ import React, { ChangeEvent, KeyboardEvent, useRef, useState } from 'react'
 import './style.css'
 import { useNavigate } from 'react-router-dom';
 import { CheckCertificationNumberRequestDto, EmailCertificationRequestDto, IdCheckRequestDto, SignInRequestDto, SignUpRequestDto } from 'apis/request/auth';
-import { checkCertificationNumberRequest, emailCertificationRequest, idCheckRequest, signInRequest, signUpRequest } from 'apis';
+import { checkCertificationNumberRequest, emailCertificationRequest, idCheckRequest, signInRequest, signUpRequest, SNS_SIGN_IN_URL } from 'apis';
 import { CheckCertificationNumberResponseDto, EmailCertificationResponseDto, IdCheckResponseDto, SignInResponseDto, SignUpResponseDto } from 'apis/response/auth';
 import { ResponseDto } from 'apis/response';
 import { ResponseCode } from 'types/enums';
@@ -82,6 +82,10 @@ export default function SignIn() {
     }
 
 
+    const onSnsSignInButtonHandler = ( type: 'kakao' | 'naver' ) => {
+        window.location.href = SNS_SIGN_IN_URL( type );
+
+    }
 
 
 
@@ -121,8 +125,8 @@ export default function SignIn() {
                     <div className='sign-in-content-sns-sign-in-box'>
                         <div className='sign-in-content-sns-sign-in-title'> { 'SNS 로그인' }</div>
                         <div className='sign-in-content-sns-sign-in-button-box'>
-                            <div className='kakao-sign-in-button' ></div>
-                            <div className='naver-sign-in-button' ></div>
+                            <div className='kakao-sign-in-button' onClick={ ()=>onSnsSignInButtonHandler('kakao') } ></div>
+                            <div className='naver-sign-in-button' onClick={ ()=>onSnsSignInButtonHandler('naver') }></div>
                         </div>
                     </div>
                 </div>

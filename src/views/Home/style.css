@@ -1,0 +1,52 @@
+.home-wrapper {
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.home-title-box {
+
+    width: 100%;
+
+    color: rgb(64, 64, 64,1);
+
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 173%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.home-link-box {
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.home-image-box{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.back-image-box {
+    display: flex;
+    width: 500px;
+    height: 197px;
+
+    background-image: url( ./assets/images/home_image.png );
+    background-position: 50% 50%;
+    background-size: 100% 100%;
+
+}
