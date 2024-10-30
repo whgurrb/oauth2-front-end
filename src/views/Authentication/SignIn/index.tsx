@@ -121,8 +121,8 @@ export default function SignIn() {
                     <div className='sign-in-content-sns-sign-in-box'>
                         <div className='sign-in-content-sns-sign-in-title'> { 'SNS 로그인' }</div>
                         <div className='sign-in-content-sns-sign-in-button-box'>
-                            <div className='kakao-sign-in-button'></div>
-                            <div className='naver-sign-in-button'></div>
+                            <div className='kakao-sign-in-button' ></div>
+                            <div className='naver-sign-in-button' ></div>
                         </div>
                     </div>
                 </div>

@@ -259,8 +259,8 @@ export default function SignUp() {
                     <div className='sign-up-content-sns-sign-in-box'>
                         <div className='sign-up-content-sns-sign-in-title'> { 'SNS 회원가입' }</div>
                         <div className='sign-up-content-sns-sign-in-button-box'>
-                            <div className='kakao-sign-in-button'></div>
-                            <div className='naver-sign-in-button'></div>
+                            <div className='kakao-sign-in-button' ></div>
+                            <div className='naver-sign-in-button' ></div>
                         </div>
                     </div>
                     <div className='sign-up-content-divider'></div>
